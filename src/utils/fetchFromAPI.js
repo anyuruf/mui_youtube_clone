@@ -12,7 +12,7 @@ const options = {
     'x-rapidapi-key': import.meta.env.VITE_APP_RAPID_API_KEY,
     'x-rapidapi-host': import.meta.env.VITE_APP_RAPID_API_HOST,
   },
-  timeout: 1000,
+  timeout: 10000,
 };
 
 export const fetchFromAPI = async (url) => {
