@@ -14,9 +14,19 @@ type Pages = {
   "/": {
     params: {};
   };
-  "/*": {
+  "/search/:searchTerm": {
     params: {
-      "*": string;
+      "searchTerm": string;
+    };
+  };
+  "/channel/:id": {
+    params: {
+      "id": string;
+    };
+  };
+  "/video/:id": {
+    params: {
+      "id": string;
     };
   };
 };
@@ -24,15 +34,30 @@ type Pages = {
 type RouteFiles = {
   "root.jsx": {
     id: "root";
-    page: "/" | "/*";
+    page: "/" | "/search/:searchTerm" | "/channel/:id" | "/video/:id";
   };
-  "catchall.jsx": {
-    id: "catchall";
-    page: "/" | "/*";
+  "routes/search.$searchTerm.jsx": {
+    id: "routes/search.$searchTerm";
+    page: "/search/:searchTerm";
+  };
+  "routes/channel.$id.jsx": {
+    id: "routes/channel.$id";
+    page: "/channel/:id";
+  };
+  "routes/video.$id.jsx": {
+    id: "routes/video.$id";
+    page: "/video/:id";
+  };
+  "routes/_index.jsx": {
+    id: "routes/_index";
+    page: "/";
   };
 };
 
 type RouteModules = {
   "root": typeof import("./src/root.jsx");
-  "catchall": typeof import("./src/catchall.jsx");
+  "routes/search.$searchTerm": typeof import("./src/routes/search.$searchTerm.jsx");
+  "routes/channel.$id": typeof import("./src/routes/channel.$id.jsx");
+  "routes/video.$id": typeof import("./src/routes/video.$id.jsx");
+  "routes/_index": typeof import("./src/routes/_index.jsx");
 };

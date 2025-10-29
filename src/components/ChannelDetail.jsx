@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import { Box } from "@mui/material";
 
-import { Videos, ChannelCard } from "./";
+import { VideoGrid, ChannelCard } from "./";
 import { fetchFromAPI } from "../utils/fetchFromAPI";
 
 const ChannelDetail = () => {
@@ -37,7 +37,7 @@ const ChannelDetail = () => {
       </Box>
       <Box p={2} display="flex">
       <Box sx={{ mr: { sm: '100px' } }}/>
-        <Videos videos={videos} />
+        <VideoGrid videos={videos} />
       </Box>
     </Box>
   );
