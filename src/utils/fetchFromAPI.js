@@ -1,19 +1,32 @@
 import axios from 'axios';
 
-export const BASE_URL = 'https://youtube-v31.p.rapidapi.com';
+export const BASE_URL = "https://youtube138.p.rapidapi.com";
+
 
 const options = {
+  baseURL: {BASE_URL},
   params: {
-    maxResults: 50,
+    maxResults: 35,
   },
   headers: {
-    'X-RapidAPI-Key': process.env.REACT_APP_RAPID_API_KEY,
-    'X-RapidAPI-Host': 'youtube-v31.p.rapidapi.com',
+    'x-rapidapi-key': import.meta.env.VITE_APP_RAPID_API_KEY,
+    'x-rapidapi-host': import.meta.env.VITE_APP_RAPID_API_HOST,
   },
+  timeout: 1000,
 };
 
 export const fetchFromAPI = async (url) => {
-  const { data } = await axios.get(`${BASE_URL}/${url}`, options);
-
-  return data;
+  const instance = axios.create({options });
+  // Make a request for a user with a given ID
+  instance.get(url)
+    .then(function (response) {
+      // handle success
+      console.log("Respose", response.data);
+      return response.data;
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+      return [];
+    });
 };

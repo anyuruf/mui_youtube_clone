@@ -4,7 +4,7 @@ import ReactPlayer from "react-player";
 import { Typography, Box, Stack } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
-import { Videos, Loader } from "./";
+import { VideoGrid, Loader } from "./";
 import { fetchFromAPI } from "../utils/fetchFromAPI";
 
 const VideoDetail = () => {
@@ -52,7 +52,7 @@ const VideoDetail = () => {
           </Box>
         </Box>
         <Box px={2} py={{ md: 1, xs: 5 }} justifyContent="center" alignItems="center" >
-          <Videos videos={videos} direction="column" />
+          <VideoGrid videos={videos} direction="column" />
         </Box>
       </Stack>
     </Box>

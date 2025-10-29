@@ -3,7 +3,7 @@ import { Typography, Box } from "@mui/material";
 import { useParams } from "react-router";
 
 import { fetchFromAPI } from "../utils/fetchFromAPI";
-import { Videos } from "./";
+import { VideoGrid } from "./";
 
 const SearchFeed = () => {
   const [videos, setVideos] = useState(null);
@@ -21,7 +21,7 @@ const SearchFeed = () => {
       </Typography>
       <Box display="flex">
         <Box sx={{ mr: { sm: '100px' } }}/>
-        {<Videos videos={videos} />}
+        {<VideoGrid videos={videos} />}
       </Box>
     </Box>
   );
