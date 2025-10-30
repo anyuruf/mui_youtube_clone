@@ -23,113 +23,27 @@ function VideoCard  ({ video }) {
     ) || false;
 
   return(
-    
-  <Card sx={{ width: { xs: '100%', sm: '358px', md: "320px", }, boxShadow: "none", borderRadius: 2,
-  bgcolor: "#1E1E1E", }}>
-    <Link to={videoId ? `/video/${videoId}` : demoVideoUrl }>
-    <Box sx={{ position: "relative" }}>
-          <CardMedia
-            image={thumbnail}
-            alt={title}
-            sx={{
-              width: { xs: "100%", sm: "358px" },
-              height: 180,
-              borderTopLeftRadius: 8,
-              borderTopRightRadius: 8,
-            }}
-          />
-          {video.duration && (
-            <Box
-              sx={{
-                position: "absolute",
-                bottom: 8,
-                right: 8,
-                bgcolor: "rgba(0,0,0,0.75)",
-                color: "#fff",
-                fontSize: "0.7rem",
-                px: 0.75,
-                py: 0.25,
-                borderRadius: 0.75,
-              }}
-            >
-              {formatDuration(video.duration)}
-            </Box>
-          )}
-        </Box>
+    <Card sx={{ width: { xs: '100%', sm: '358px', md: "320px", }, boxShadow: "none", borderRadius: 0 }}>
+      <Link to={videoId ? `/video/${videoId}` : `/video/cV2gBU6hKfY` }>
+        <CardMedia image={thumbnail?.high?.url || demoThumbnailUrl} alt={title} 
+          sx={{ width: { xs: '100%', sm: '358px'}, height: 180 }} 
+        />
       </Link>
-
-      {/* Content */}
-      <CardContent sx={{ backgroundColor: "#1E1E1E", height: "106px" }}>
-        {/* Title */}
-        <Link to={videoId ? `/video/${videoId}` : demoVideoUrl}>
+      <CardContent sx={{ backgroundColor: "#1E1E1E", height: '106px' }}>
+        <Link to={videoId ? `/video/${videoId}` : demoVideoUrl } >
           <Typography variant="subtitle1" fontWeight="bold" color="#FFF">
             {title.slice(0, 60) || demoVideoTitle.slice(0, 60)}
           </Typography>
         </Link>
-
-        {/* Channel */}
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1, mt: 0.5 }}>
-          <Avatar
-            src={avatar}
-            alt={channelTitle}
-            sx={{ width: 28, height: 28 }}
-          />
-          <Link
-            to={channelId ? `/channel/${channelId}` : demoChannelUrl}
-            style={{ textDecoration: "none" }}
-          >
-            <Typography variant="subtitle2" color="gray" display="flex" alignItems="center">
-              {channelTitle || demoChannelTitle}
-              {isVerified && (
-                <CheckCircleIcon
-                  sx={{ fontSize: "12px", color: "gray", ml: "5px" }}
-                />
-              )}
-            </Typography>
-          </Link>
-        </Box>
-
-        {/* Views + Published */}
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            gap: 1,
-            mt: 0.5,
-            color: "gray",
-            fontSize: "0.75rem",
-          }}
-        >
-          {views && (
-            <>
-              <VisibilityIcon sx={{ fontSize: "14px" }} />
-              <span>{formatViews(views)}</span>
-            </>
-          )}
-          {published && (
-            <>
-              <span>•</span>
-              <span>{published}</span>
-            </>
-          )}
-        </Box>
+        <Link to={channelId ? `/channel/${channelId}` : demoChannelUrl} >
+          <Typography variant="subtitle2" color="gray">
+            {channelTitle || demoChannelTitle}
+            <CheckCircleIcon sx={{ fontSize: "12px", color: "gray", ml: "5px" }} />
+          </Typography>
+        </Link>
       </CardContent>
     </Card>
   );
-};
-
-// --- helpers ---
-function formatViews(v) {
-  if (!v) return "—";
-  if (v >= 1_000_000) return (v / 1_000_000).toFixed(1) + "M views";
-  if (v >= 1_000) return (v / 1_000).toFixed(1) + "K views";
-  return v + " views";
-}
-
-function formatDuration(sec) {
-  const m = Math.floor(sec / 60);
-  const s = sec % 60;
-  return `${m}:${s.toString().padStart(2, "0")}`;
 }
 
 export default VideoCard;
