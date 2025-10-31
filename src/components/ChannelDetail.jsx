@@ -3,22 +3,21 @@ import { useParams } from "react-router";
 import { Box } from "@mui/material";
 
 import { VideoGrid, ChannelCard } from "./";
-import { fetchFromAPI } from "../utils/fetchFromAPI";
+import { axiosInstance } from "../utils/axiosInstance";
 
 const ChannelDetail = () => {
   const [channelDetail, setChannelDetail] = useState();
   const [videos, setVideos] = useState(null);
 
   const { id } = useParams();
+  const url1 = `channels?part=snippet&id=${id}`;
+  const url2 = `search?channelId=${id}&part=snippet%2Cid&order=date`;
 
   useEffect(() => {
     const fetchResults = async () => {
-      const data = await fetchFromAPI(`channels?part=snippet&id=${id}`);
-
+      const data = await axiosInstance({url1});
       setChannelDetail(data?.items[0]);
-
-      const videosData = await fetchFromAPI(`search?channelId=${id}&part=snippet%2Cid&order=date`);
-
+      const videosData = await axiosInstance({url2});
       setVideos(videosData?.items);
     };
 

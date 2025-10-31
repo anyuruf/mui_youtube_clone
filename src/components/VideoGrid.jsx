@@ -7,7 +7,6 @@ export default function VideoGrid({ videos }) {
   if (!Array.isArray(videos) || videos.length === 0) {
     return <p style={{ color: "#aaa" }}>No videos found</p>;
   }
-  console.log("From video grid", videos);
   
   return (
      <Stack direction="row"
@@ -15,8 +14,11 @@ export default function VideoGrid({ videos }) {
       justifyContent="start" 
       alignItems="start" 
       gap={2}>
-      {videos.map((video) => (
-         <VideoCard video={video}/>
+      {videos.map((content) => (
+        <>
+          {/* unwrap video object in {type: "video", video: {}, } */}
+          <VideoCard video={content.video} key={content.video.videoId}/>
+        </>
       ))}
      </Stack>
   );

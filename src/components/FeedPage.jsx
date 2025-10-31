@@ -1,23 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Stack, Typography } from "@mui/material";
 
-import { fetchFromAPI } from "../utils/fetchFromAPI";
+import { fetchFromAPI } from "../utils/axiosInstance";
 import { Sidebar, VideoGrid } from ".";
 import { BACK_CONTENT } from "@/utils/constants";
 
-export async function clientLoader() {  
-   
-  const DEFAULT_TOPIC = "advanced spring boot developer";
-  const data = await fetchFromAPI(`search?part=snippet&q=${DEFAULT_TOPIC}`);
-
-  console.log("Loader data:", data);
-
-  return data.contents;
-};
-
-const FeedPage = ({ loaderData }) => {
+const FeedPage = () => {
   const [selectedCategory, setSelectedCategory] = useState("advanced springboot developer");
-  console.log(loaderData);
+  const [videos, setVideos] = useState(null);
+  const videosProxy = videos??BACK_CONTENT;
+
+  useEffect(() => {
+    setVideos(null);
+    fetchFromAPI(`search?part=snippet&q=${selectedCategory}`)
+      .then((data) => {
+        setVideos(data.contents);
+      })
+    }, [selectedCategory]);
+
 
   return (
     <Stack sx={{ flexDirection: { xs: "column", md: "row" } }}>
@@ -57,7 +57,7 @@ const FeedPage = ({ loaderData }) => {
           <span style={{ color: "#FC1503" }}>videos</span>
         </Typography>
 
-        <VideoGrid videos={BACK_CONTENT} />
+        <VideoGrid videos={videosProxy} />
       </Box>
     </Stack>
   );

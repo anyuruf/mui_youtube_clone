@@ -1,4 +1,4 @@
-import { VideoDetail } from "@/components"
+import VideoDetail  from "@/components"
 
 function VideoDetailPage() {
   return (
