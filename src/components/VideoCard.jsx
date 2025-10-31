@@ -4,24 +4,27 @@ import { Typography, Card, CardContent, CardMedia } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 import { demoVideoUrl, demoVideoTitle, demoChannelUrl, demoChannelTitle } from "../utils/constants";
+import MediaChromeCard from './MediaChromeCard';
 
 function VideoCard  ({ video }) {
    if (!video || typeof video !== 'object') return null;
 
-  const videoId = video.video.videoId || demoVideoUrl.slice(7);
-  const channelId =  video.video.author.channelId || demoChannelUrl.slice(8);
-  const channelTitle = video.video.channel || video?.video?.author?.title;
-  const title = video.video.title || demoVideoTitle;
-  const imgUrl = video.video.thumbnails[0].url || demoVideoUrl;
+  const videoId = video.videoId || demoVideoUrl.slice(7);
+  const channelId =  video.author.channelId || demoChannelUrl.slice(8);
+  const channelTitle = video.channel || video?.video?.author?.title;
+  const title = video.title || demoVideoTitle;
+  const imgUrl = video.thumbnails[0].url || demoVideoUrl;
 
   return(
-    <Card sx={{ width: { xs: '100%', sm: '358px', md: "320px", }, boxShadow: "none", borderRadius: 0 }}>
-      <Link to={videoId ? `/video/${videoId}` : `/video/cV2gBU6hKfY` }>
-        <CardMedia src={imgUrl} />
-      </Link>
+    <Card sx={{ width: { xs: '100%', sm: '358px', md: "320px", }, boxShadow: 1, borderRadius: 0 }}>
+      <CardMedia >
+        <Link as="MediaChromeCard" to={videoId ? `/video/${videoId}` : `/video/cV2gBU6hKfY` }>
+          <MediaChromeCard videoId={videoId} imgUrl={imgUrl}/>
+        </Link>
+      </CardMedia>
       <CardContent>
         <Link to={videoId ? `/video/${videoId}` : demoVideoUrl } >
-          <Typography variant="h5" gutterBottom component="div">
+          <Typography variant="subtitle" gutterBottom component="div">
             {title.slice(0, 60) || demoVideoTitle.slice(0, 60)}
           </Typography>
         </Link>

@@ -2,15 +2,16 @@ import { useState, useEffect } from "react";
 import { Typography, Box } from "@mui/material";
 import { useParams } from "react-router";
 
-import { fetchFromAPI } from "../utils/fetchFromAPI";
+import { axiosInstance } from "../utils/axiosInstance";
 import { VideoGrid } from "./";
 
 const SearchFeed = () => {
   const [videos, setVideos] = useState(null);
   const { searchTerm } = useParams();
+  const url = `search?part=snippet&q=${searchTerm}`
 
   useEffect(() => {
-    fetchFromAPI(`search?part=snippet&q=${searchTerm}`)
+    axiosInstance({url})
       .then((data) => setVideos(data.items))
   }, [searchTerm]);
 

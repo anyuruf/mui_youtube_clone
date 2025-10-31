@@ -4,19 +4,21 @@ import { Typography, Box, Stack } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 import { VideoGrid, Loader } from "./";
-import { fetchFromAPI } from "../utils/fetchFromAPI";
+import { axiosInstance } from "../utils/axiosInstance";
 import MediaChromeDetail from "./MediaChromeDetail";
 
 const VideoDetail = () => {
   const [videoDetail, setVideoDetail] = useState(null);
   const [videos, setVideos] = useState(null);
   const { id } = useParams();
+  const url1 = `videos?part=snippet,statistics&id=${id}`;
+  const url2 = `search?part=snippet&relatedToVideoId=${id}&type=video`;
 
   useEffect(() => {
-    fetchFromAPI(`videos?part=snippet,statistics&id=${id}`)
+    axiosInstance({url: {url1} })
       .then((data) => setVideoDetail(data.items[0]))
 
-    fetchFromAPI(`search?part=snippet&relatedToVideoId=${id}&type=video`)
+    axiosInstance({url2})
       .then((data) => setVideos(data.items))
   }, [id]);
 
