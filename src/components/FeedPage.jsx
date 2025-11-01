@@ -36,7 +36,7 @@ const FeedPage = () => {
 
         <Typography
           variant="body2"
-          sx={{ mt: 1.5, color: "#fff" }}
+          sx={{ mt: 1.5}}
         >
           Copyright © 2022 JSM Media
         </Typography>
@@ -48,10 +48,9 @@ const FeedPage = () => {
         sx={{ overflowY: "auto", height: "90vh", flex: 2 }}
       >
         <Typography
-          variant="h4"
+          variant="subtitle2"
           fontWeight="bold"
           mb={2}
-          sx={{ color: "#fff" }}
         >
           {selectedCategory}{" "}
           <span style={{ color: "#FC1503" }}>videos</span>

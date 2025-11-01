@@ -1,4 +1,4 @@
-import { ChannelDetail } from "@/components"
+import ChannelDetail from "@/components"
 
 function ChannelDetailPage() {
   return (
