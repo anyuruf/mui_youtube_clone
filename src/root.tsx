@@ -5,10 +5,12 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
+import { MediaProvider } from 'media-chrome/react/media-store';
 
 export function Layout({
   children,
 }) {
+  
   return (
     <html lang="en">
       <head>
@@ -22,9 +24,11 @@ export function Layout({
         <Links />
       </head>
       <body>
+        <MediaProvider >
         {children}
         <ScrollRestoration />
         <Scripts />
+        </MediaProvider>
       </body>
     </html>
   );
