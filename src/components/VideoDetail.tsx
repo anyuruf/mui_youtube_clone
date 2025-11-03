@@ -3,23 +3,18 @@ import { Link, useParams } from "react-router";
 import { Typography, Box, Stack } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
-import { VideoGrid, Loader } from "./";
+import { VideoGrid, Loader, Navbar } from "./";
 import { axiosInstance } from "../utils/axiosInstance";
 import MediaChromeDetail from "./MediaChromeDetail";
 
 const VideoDetail = () => {
   const [videoDetail, setVideoDetail] = useState(null);
-  const [videos, setVideos] = useState(null);
   const { id } = useParams();
-  const url1 = `videos?part=snippet,statistics&id=${id}`;
-  const url2 = `search?part=snippet&relatedToVideoId=${id}&type=video`;
+  const url1 = `/v2/video-details?video_id=${id}`;
 
   useEffect(() => {
     axiosInstance({url: {url1} })
-      .then((data) => setVideoDetail(data.items[0]))
-
-    axiosInstance({url2})
-      .then((data) => setVideos(data.items))
+      .then((data) => setVideoDetail(data))
   }, [id]);
 
   if(!videoDetail?.snippet) return <Loader />;
@@ -28,6 +23,8 @@ const VideoDetail = () => {
 
   return (
     <Box minHeight="95vh">
+    <>
+      <Navbar />
       <Stack direction={{ xs: "column", md: "row" }}>
         <Box flex={1}>
           <Box sx={{ width: "100%", position: "sticky", top: "86px" }}>
@@ -54,9 +51,10 @@ const VideoDetail = () => {
           </Box>
         </Box>
         <Box px={2} py={{ md: 1, xs: 5 }} justifyContent="center" alignItems="center" >
-          <VideoGrid videos={videos} direction="column" />
+          <VideoGrid videos={videoDetail.recommendedVideos} direction="column" key={videoDetail.recommendedVideos.videoId} />
         </Box>
       </Stack>
+      </>
     </Box>
   );
 };

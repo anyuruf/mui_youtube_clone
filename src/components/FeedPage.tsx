@@ -15,6 +15,7 @@ const FeedPage = () => {
     fetchFromAPI(`search?part=snippet&q=${selectedCategory}`)
       .then((data) => {
         setVideos(data.contents);
+        console.log("Videos From VideoGrid {} :", videos );
       })
     }, [selectedCategory]);
 

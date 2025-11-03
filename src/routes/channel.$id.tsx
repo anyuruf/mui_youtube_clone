@@ -6,4 +6,4 @@ function ChannelDetailPage() {
   )
 }
 
-export default ChannelDetailPage
+export default ChannelDetailPage;
