@@ -7,7 +7,7 @@ import { BACK_CONTENT } from "@/utils/constants";
 import {useLoaderData} from "react-router";
 
 export async function clientLoader () {
-    const {contents} = await axiosInstance.get(`search?q=${selectedCategory}&hl=en&gl=US`)
+    const {contents} = await axiosInstance.get(`search?q=Advanced+Spring+Boot+Developer&hl=en&gl=US`)
                                 .catch(function (error) {
                                     if (error.response) {
                                         // The request was made and the server responded with a status code
