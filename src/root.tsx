@@ -1,14 +1,16 @@
 import React from "react";
 import {
-  Links,
-  Meta,
-  Outlet,
-  Scripts,
-  ScrollRestoration,
+    isRouteErrorResponse,
+    Links,
+    Meta,
+    Outlet,
+    Scripts,
+    ScrollRestoration,
 } from "react-router";
-import { MediaProvider } from 'media-chrome/react/media-store';
 import type { Route } from "./+types/root";
 import createEmotionCache from "./CreateCache";
+import { CacheProvider } from '@emotion/react';
+import Box from '@mui/material/Box';
 import AppTheme from './Theme';
 
 export function Layout({
@@ -28,11 +30,9 @@ export function Layout({
         <Links />
       </head>
       <body>
-        <MediaProvider >
         {children}
         <ScrollRestoration />
         <Scripts />
-        </MediaProvider>
       </body>
     </html>
   );

@@ -8,25 +8,32 @@ import {
   demoVideoTitle,
   demoChannelUrl,
   demoChannelTitle,
-} from "../utils/constants";
-import MediaChromeCard from "./MediaChromeCard";
-import {
-  useMediaDispatch,
-  MediaActionTypes,
-  useMediaRef,
-} from "media-chrome/react/media-store";
+} from "@/utils/constants";
+import { useRef, useEffect, useState} from "react";
 
 function VideoCard({ video }) {
-  if (!video || typeof video !== "object") return null;
+    if (!video || typeof video !== "object") return null;
 
-  const videoId = video.videoId || demoVideoUrl.slice(7);
-  const channelId = video.author.channelId || demoChannelUrl.slice(8);
-  const channelTitle = video.channel || video?.video?.author?.title;
-  const title = video.title || demoVideoTitle;
-  const imgUrl = video.thumbnails[0].url || demoVideoUrl;
+    const videoId = video.videoId || demoVideoUrl.slice(7);
+    const channelId = video.author.channelId || demoChannelUrl.slice(8);
+    const channelTitle = video.channel || video?.video?.author?.title;
+    const title = video.title || demoVideoTitle;
+    const imgUrl = video.thumbnails[0].url || demoVideoUrl;
+    const videoUrl = `http://www.youtube.com/watch?v=${videoId}`;
 
-  const videoDispatch = useMediaDispatch();
-  const videoRef = useMediaRef();
+    const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+    const videoRef = useRef<HTMLVideoElement>(null);
+
+    useEffect(() => {
+        if (videoRef.current === null) return;
+
+        if (isVideoPlaying) {
+            videoRef.current.currentTime = 0;
+            videoRef.current.play();
+        } else {
+            videoRef.current.pause();
+        }
+    }, [isVideoPlaying]);
 
   return (
     <Card
@@ -38,21 +45,12 @@ function VideoCard({ video }) {
     >
       <CardMedia>
         <Link
-          as="MediaChromeCard"
+          as="video"
           to={videoId ? `/video/${videoId}` : `/video/cV2gBU6hKfY`}
-          onMouseEnter={(_event) => {
-            const type = MediaActionTypes.MEDIA_PLAY_REQUEST;
-            videoDispatch({ type });
-          }}
-          onMouseLeave={(_event) => {
-            const type = MediaActionTypes.MEDIA_PAUSE_REQUEST;
-            videoDispatch({ type });
-          }}
         >
-          <MediaChromeCard
-            videoId={videoId}
-            imgUrl={imgUrl}
-            videoRef={videoRef}
+          <video
+            src={videoUrl}
+            ref={videoRef}
           />
         </Link>
       </CardMedia>
