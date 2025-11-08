@@ -3,7 +3,13 @@ import {Box, Stack, Typography} from "@mui/material";
 import {Sidebar, VideoGrid} from ".";
 
 
-const FeedPage = ({videos, selectedCategory, setSelectedCategory}) => {
+interface FeedPageProps {
+  videos: Array<{ type: string; video: any }>;
+  selectedCategory: string;
+  setSelectedCategory: (category: string) => void;
+}
+
+const FeedPage = ({videos, selectedCategory, setSelectedCategory}: FeedPageProps) => {
 
     return (
     <Stack sx={{ flexDirection: { xs: "column", md: "row" } }}>
