@@ -1,8 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Typography, Box } from "@mui/material";
 import { useParams } from "react-router";
 
-import { axiosInstance } from "../utils/axiosInstance";
 import { VideoGrid } from "./";
 
 const SearchFeed = () => {
@@ -10,10 +9,7 @@ const SearchFeed = () => {
   const { searchTerm } = useParams();
   const url = `search?part=snippet&q=${searchTerm}`
 
-  useEffect(() => {
-    axiosInstance({url})
-      .then((data) => setVideos(data.items))
-  }, [searchTerm]);
+
 
   return (
     <Box p={2} minHeight="95vh">

@@ -19,7 +19,7 @@ function VideoCard({ video }) {
     const channelTitle = video.channel || video?.video?.author?.title;
     const title = video.title || demoVideoTitle;
     const imgUrl = video.thumbnails[0].url || demoVideoUrl;
-    const videoUrl = `http://www.youtube.com/watch?v=${videoId}`;
+    const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
 
     const [isVideoPlaying, setIsVideoPlaying] = useState(false);
     const videoRef = useRef<HTMLVideoElement>(null);
@@ -29,7 +29,7 @@ function VideoCard({ video }) {
 
         if (isVideoPlaying) {
             videoRef.current.currentTime = 0;
-            videoRef.current.play();
+            videoRef.current.play().then();
         } else {
             videoRef.current.pause();
         }
@@ -38,7 +38,7 @@ function VideoCard({ video }) {
   return (
     <Card
       sx={{
-        width: { xs: "100%", sm: "358px", md: "320px" },
+        width: { xs: "100%", sm: "358px", md: "350px" },
         boxShadow: 1,
         borderRadius: 0,
       }}
@@ -47,10 +47,16 @@ function VideoCard({ video }) {
         <Link
           as="video"
           to={videoId ? `/video/${videoId}` : `/video/cV2gBU6hKfY`}
+          onMouseEnter={() => setIsVideoPlaying(true)}
+          onMouseLeave={() => setIsVideoPlaying(false)}
         >
           <video
             src={videoUrl}
             ref={videoRef}
+            poster={imgUrl}
+            muted
+            playsInline
+
           />
         </Link>
       </CardMedia>

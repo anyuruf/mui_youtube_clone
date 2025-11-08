@@ -2,13 +2,15 @@ import { Transform } from 'node:stream';
 
 import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
-import type { EntryContext } from 'react-router';
+import type {ActionFunction, EntryContext, LoaderFunction} from 'react-router';
 import { ServerRouter } from 'react-router';
 import { createReadableStreamFromReadable } from '@react-router/node';
 import { isbot } from 'isbot';
 import createEmotionServer from '@emotion/server/create-instance';
 import { CacheProvider } from '@emotion/react';
 import createEmotionCache from './CreateCache';
+import {styleText} from "node:util";
+import { type HandleErrorFunction } from "react-router";
 
 export const streamTimeout = 5_000;
 
@@ -98,4 +100,21 @@ export default function handleRequest(
         // flush down the rejected boundaries
         setTimeout(abort, streamTimeout + 1000);
     });
+}
+
+export const handleError: HandleErrorFunction = (
+    error,
+    { request },
+) => {
+    // Skip capturing if the request is aborted as Remix docs suggest
+    // Ref: https://remix.run/docs/en/main/file-conventions/entry.server#handleerror
+    if (request.signal.aborted) {
+        return
+    }
+
+    if (error instanceof Error) {
+        console.error(styleText('red', String(error.stack)))
+    } else {
+        console.error(error)
+    }
 }

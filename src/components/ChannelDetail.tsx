@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router";
 import { Box } from "@mui/material";
 
 import { VideoGrid, ChannelCard } from "./";
-import { axiosInstance } from "../utils/axiosInstance";
+
 
 const ChannelDetail = () => {
   const [channelDetail, setChannelDetail] = useState();
@@ -13,16 +13,6 @@ const ChannelDetail = () => {
   const url1 = `channels?part=snippet&id=${id}`;
   const url2 = `search?channelId=${id}&part=snippet%2Cid&order=date`;
 
-  useEffect(() => {
-    const fetchResults = async () => {
-      const data = await axiosInstance({url1});
-      setChannelDetail(data?.items[0]);
-      const videosData = await axiosInstance({url2});
-      setVideos(videosData?.items);
-    };
-
-    fetchResults();
-  }, [id]);
 
   return (
     <Box minHeight="95vh">
