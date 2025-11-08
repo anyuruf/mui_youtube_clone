@@ -1,32 +1,9 @@
 import axios, {type AxiosError, type AxiosResponse} from 'axios';
+import queryString from 'query-string';
 
-export const BASE_URL = "https://www.youtube-data8.p.rapidapi.com/";
-
-/**
- * Custom API error with metadata for React Router loaders/actions.
- */
-
-class APIError extends Error {
-    statusCode: number;
-    stack?: string | undefined;
-
-    constructor(message: string, statusCode: number) {
-        super(message);
-        this.statusCode = statusCode;
-        if (Error.captureStackTrace) {
-            Error.captureStackTrace(this, APIError);
-        }
-    }
-}
-
-export default APIError;
-
-
-
-
+export const BASE_URL = "https://youtube-data8.p.rapidapi.com";
 
 const options = {
-    baseUrl: {BASE_URL},
     params: {
         maxResults: 35,
     },
@@ -36,14 +13,6 @@ const options = {
     },
 };
 
-export const fetchFromAPI = async (url: string): Promise<unknown> => {
-    const { data } = await axios.get(`${BASE_URL}/${url}`, options);
-    return data;
-};
-
-// Source - https://stackoverflow.com/a/69854932
-// Posted by Humoyun Ahmad
-// Retrieved 2025-11-07, License - CC BY-SA 4.0
 const apiClient  = axios.create(options);
 
 apiClient.interceptors.response.use(
@@ -52,53 +21,15 @@ apiClient.interceptors.response.use(
         return response.data;
     },
     (err: AxiosError) => {
-        // Any status codes that falls outside the range of 2xx cause this function to trigger
-        const status = err.response?.status || 500;
-        // we can handle global errors here
-        switch (status) {
-            // authentication (token related issues)
-            case 401: {
-                return Promise.reject(new APIError(err.message, 409));
-            }
-
-            // forbidden (permission related issues)
-            case 403: {
-                return Promise.reject(new APIError(err.message, 409));
-            }
-
-            // bad request
-            case 400: {
-                return Promise.reject(new APIError(err.message, 400));
-            }
-
-            // not found
-            case 404: {
-                return Promise.reject(new APIError(err.message, 404));
-            }
-
-            // conflict
-            case 409: {
-                return Promise.reject(new APIError(err.message, 409));
-            }
-
-            // unprocessable
-            case 422: {
-                return Promise.reject(new APIError(err.message, 422));
-            }
-
-            // generic api error (server related) unexpected
-            default: {
-                return Promise.reject(new APIError(err.message, 500));
-            }
-        }
+        // handle error
+        console.log(err);
     }
 );
 
-
-
-
-export const getVideos = (selectedCategory = "Advanced Spring Boot Developer" ) : Promise<any> =>
-    apiClient.get(`search?part=snippet&q=${selectedCategory}&hl=en&gl=US`);
+export const getVideos = async (queryString: string ) : Promise<any> => {
+    const url = `${BASE_URL}/search?part=snippet&q=${queryString}&hl=en&gl=US`;
+    return await apiClient.get(url);
+}
 
 export const getChannel = (id : string) =>
     apiClient.get(`channels?part=snippet&id=${id}`);

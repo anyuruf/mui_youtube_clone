@@ -1,21 +1,20 @@
 import { FeedPage, Navbar } from '@/components'
 import { useState } from 'react'
 import { useLoaderData } from "react-router";
-import {getVideos} from "@/utils/axiosClient";
+import {fetchFromAPI, getVideos} from "@/utils/axiosClient";
+import {BACK_CONTENT} from "@/utils/constants";
 //import { BACK_CONTENT } from "@/utils/constants";
 
 
 export async function loader () {
-   const { contents } = await getVideos();
-
+   const data  = await getVideos("Advanced Spring Boot Developer");
+   const {contents} = data;
     return {contents};
 }
 function AppIndex
 () {
-
     const [selectedCategory, setSelectedCategory] = useState("Advanced Spring Boot Developer");
     const  {contents}    = useLoaderData();
-    console.log(contents);
 
   return (
     <>

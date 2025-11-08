@@ -5,7 +5,6 @@ import {Sidebar, VideoGrid} from ".";
 
 const FeedPage = ({videos, selectedCategory, setSelectedCategory}) => {
 
-
     return (
     <Stack sx={{ flexDirection: { xs: "column", md: "row" } }}>
       {/* Sidebar */}

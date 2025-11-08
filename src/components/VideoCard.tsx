@@ -38,7 +38,7 @@ function VideoCard({ video }) {
   return (
     <Card
       sx={{
-        width: { xs: "100%", sm: "358px", md: "350px" },
+        width: { xs: "100%", sm: "358px", md: "335px" },
         boxShadow: 1,
         borderRadius: 0,
       }}
