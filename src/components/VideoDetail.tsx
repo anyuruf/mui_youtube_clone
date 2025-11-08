@@ -1,21 +1,15 @@
-import React, { useEffect, useState } from "react";
+import {  useState } from "react";
 import { Link, useParams } from "react-router";
 import { Typography, Box, Stack } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 import { VideoGrid, Loader, Navbar } from "./";
-import { axiosInstance } from "../utils/axiosInstance";
 import MediaChromeDetail from "./MediaChromeDetail";
 
 const VideoDetail = () => {
   const [videoDetail, setVideoDetail] = useState(null);
   const { id } = useParams();
   const url1 = `/v2/video-details?video_id=${id}`;
-
-  useEffect(() => {
-    axiosInstance({url: {url1} })
-      .then((data) => setVideoDetail(data))
-  }, [id]);
 
   if(!videoDetail?.snippet) return <Loader />;
 
