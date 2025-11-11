@@ -1,6 +1,6 @@
 import React from "react"
 import VideoCard from "./VideoCard"
-import   Stack  from "@mui/material/Stack";
+import   Box  from "@mui/material/Box";
 
 export default function VideoGrid({ videos }) {
   // Guard against empty videos array
@@ -9,17 +9,20 @@ export default function VideoGrid({ videos }) {
   }
   
   return (
-     <Stack direction="row"
-      flexWrap="wrap" 
-      justifyContent="start" 
-      alignItems="start" 
-      gap={2}>
+      <Box
+          sx={{
+              width: '100%',
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(min(335px, 100%), 1fr))',
+              gap: 2,
+          }}
+      >
       {videos.map((content) => (
         <>
           {/* unwrap video object in {type: "video", video: {}, } */}
           <VideoCard video={content.video} key={content.video.videoId}/>
         </>
       ))}
-     </Stack>
+     </Box>
   );
 };
