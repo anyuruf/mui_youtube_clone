@@ -1,5 +1,4 @@
 import axios, {type AxiosError, type AxiosResponse} from 'axios';
-import queryString from 'query-string';
 
 export const BASE_URL = "https://youtube-data8.p.rapidapi.com";
 
