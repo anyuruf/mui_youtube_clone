@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useParams } from "react-router";
 import { Box } from "@mui/material";
 
-import { VideoGrid, ChannelCard } from "./";
+import { VideoGrid, ChannelCard } from "../index";
 
 
 const ChannelDetail = () => {

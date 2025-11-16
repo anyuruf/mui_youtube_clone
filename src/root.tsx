@@ -11,7 +11,16 @@ import type { Route } from "./+types/root";
 import createEmotionCache from "./CreateCache";
 import { CacheProvider } from '@emotion/react';
 import Box from '@mui/material/Box';
-import AppTheme from './Theme';
+import { StyledEngineProvider } from '@mui/material/styles';
+import AppTheme from "@/theme/AppTheme";
+import NotificationsProvider from '@/hooks/useNotifications/NotificationsProvider';
+import DialogsProvider from '@/hooks/useDialogs/DialogsProvider';
+import {
+    dataGridCustomizations,
+    datePickersCustomizations,
+    formInputCustomizations,
+    sidebarCustomizations,
+} from "@/theme/customizations";
 
 export function Layout({
   children,
@@ -25,7 +34,7 @@ export function Layout({
           name="viewport"
           content="width=device-width, initial-scale=1.0"
         />
-        <title>OpenStream</title>
+        <title>Open Stream</title>
         <Meta />
         <Links />
       </head>
@@ -40,20 +49,37 @@ export function Layout({
 
 const cache = createEmotionCache();
 
+const themeComponents = {
+    ...dataGridCustomizations,
+    ...datePickersCustomizations,
+    ...sidebarCustomizations,
+    ...formInputCustomizations,
+};
+
+function RootElement (props: { disableCustomTheme?: boolean }) {
+    return(
+        <StyledEngineProvider injectFirst>
+            <AppTheme {...props} themeComponents={themeComponents}>
+                <NotificationsProvider>
+                    <DialogsProvider>
+                        <Outlet />
+                    </DialogsProvider>
+                </NotificationsProvider>
+            </AppTheme>
+        </StyledEngineProvider>
+    );
+}
+
 export default function Root() {
     if (typeof window !== 'undefined') {
         return (
             <CacheProvider value={cache}>
-                <AppTheme>
-                    <Outlet />
-                </AppTheme>
+                <RootElement />
             </CacheProvider>
         );
     }
     return (
-        <AppTheme>
-            <Outlet />
-        </AppTheme>
+        <RootElement />
     );
 }
 

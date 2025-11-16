@@ -45,10 +45,11 @@ function VideoCard({ video } : VideoType) {
                     "&:hover": {
                         background: "linear-gradient(35deg, hsla(0, 100%, 45%, 0.35), hsla(53, 100%, 50%, 0.35))",
                         zIndex: 35,
-                        borderTopLeftRadius: 8,
-                        borderTopRightRadius: 8,
-                        border: "solid",
-                        borderImage: "linear-gradient(53deg, hsla(0, 100%, 45%, 0.35), hsla(53, 100%, 50%, 0.35))",
+                        border: "10px solid",
+                        borderImageSlice: 1,
+                        borderWidth: "8px",
+                        borderImageSource: "linear-gradient(85deg, hsla(0, 100%, 45%, 0.35), hsla(53, 100%, 50%," +
+                            " 0.35))",
                     },
                 }}
             >
@@ -58,8 +59,8 @@ function VideoCard({ video } : VideoType) {
                         position: "relative",
                         aspectRatio: "16/9",
                         width: "100%",
-                        borderTopLeftRadius: 12,
-                        borderTopRightRadius: 12,
+                        borderTopLeftRadius: 1,
+                        borderTopRightRadius: 1,
                         overflow: "hidden",
                         transition: "border-radius 0.2s ease",
                         display: "block",
@@ -91,7 +92,7 @@ function VideoCard({ video } : VideoType) {
                                 position: "absolute",
                                 bottom: 4,
                                 right: 4,
-                                bgcolor: "hsl(0,0%,30%)",
+                                bgcolor: "hsla(28, 100%, 35%, 0.88)",
                                 color: "white",
                                 fontSize: "0.75rem",
                                 px: 0.5,
@@ -144,8 +145,9 @@ function VideoCard({ video } : VideoType) {
                         <Typography
                             variant="body2"
                             color="text.secondary"
-                            sx={{ background: "linear-gradient(53deg, hsla(0, 100%, 45%, 0.53), hsla(53, 100%, 50%," +
-                                    " 0.53))",
+                            sx={{ background: "linear-gradient(to right, hsla(0, 100%, 35%, 1), hsla(92, 100%," +
+                                    " 50%," +
+                                    " 0.96))",
                             webkitBackgroundClip: "text",
                             backgroundClip: "text",
                           }}>
