@@ -3,8 +3,8 @@ import { Link, useParams } from "react-router";
 import { Typography, Box, Stack } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
-import { VideoGrid, Loader, Navbar } from "./";
-import MediaChromeDetail from "./MediaChromeDetail";
+import { VideoGrid, Loader, Navbar } from "../index";
+import MediaChromeDetail from "../media_chrome/MediaChromeDetail";
 
 const VideoDetail = () => {
   const [videoDetail, setVideoDetail] = useState(null);

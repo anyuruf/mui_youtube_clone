@@ -2,18 +2,12 @@ import { useState } from "react";
 import { Typography, Box } from "@mui/material";
 import { useParams } from "react-router";
 
-import { VideoGrid } from "./";
+import { VideoGrid } from "../index";
 
-const SearchFeed = () => {
-  const [videos, setVideos] = useState(null);
-  const { searchTerm } = useParams();
-  const url = `search?part=snippet&q=${searchTerm}`
-
-
-
+const SearchFeed = ({videos, searchTerm}) => {
   return (
     <Box p={2} minHeight="95vh">
-      <Typography variant="h4" fontWeight={900}  color="white" mb={3} ml={{ sm: "100px"}}>
+      <Typography variant="caption" mb={3} ml={{ sm: "100px"}}>
         Search Results for <span style={{ color: "#FC1503" }}>{searchTerm}</span> videos
       </Typography>
       <Box display="flex">
